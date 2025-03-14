@@ -1,0 +1,54 @@
+<div class="task-list-container">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Lista de Tareas</h2>
+
+    <!-- Lista de tareas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div *ngFor="let task of tasks" class="bg-white p-4 rounded-lg shadow-md relative">
+
+            <!-- Botón de eliminar tarea que abre un modal para reconfirmar la acción -->
+            <button (click)="openConfirmModal(task.id)" 
+                class="absolute top-2 right-2 text-red-500 hover:text-red-700">
+                🗑️
+            </button>
+
+            <!-- Título con scroll si es muy largo -->
+            <h3 class="text-lg font-semibold text-gray-800 max-h-12 overflow-y-auto">
+                {{ task.title }}
+            </h3>
+
+            <!-- Descripción con scroll y máximo de líneas -->
+            <p class="text-sm text-gray-600 mt-2 max-h-24 overflow-y-auto line-clamp-3">
+                {{ task.description }}
+            </p>
+
+            <!-- Checkbox, que nos sirve para marcar una tarea como completada -->
+            <div class="flex items-center mt-4">
+                <label class="mr-2 text-sm text-gray-600">Completada:</label>
+                <input 
+                    type="checkbox" 
+                    [(ngModel)]="task.isCompleted" 
+                    (change)="checkBoxChange(task)" 
+                    class="w-6 h-6 text-blue-500 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                />
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div *ngIf="showDeleteModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div role="dialog" aria-labelledby="modal-title" class="bg-white p-6 rounded-lg shadow-lg max-w-sm">
+            <h3 id="modal-title" class="text-xl font-semibold text-gray-900">¿Desea eliminar la tarea</h3>
+            
+            <div class="flex justify-end mt-4">
+                <button (click)="closeConfirmModal()" class="px-4 py-2 bg-gray-300 rounded-lg mr-2">Cancelar</button>
+                <button (click)="deleteConfirmedTask()" class="px-4 py-2 bg-red-500 text-white rounded-lg">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación de Eliminación -->
+    <div *ngIf="showDeleteNotification" 
+        class="fixed bottom-5 right-5 bg-red-500 text-white p-3 rounded-lg shadow-lg z-50">
+        Tarea eliminada exitosamente
+    </div>
+</div>

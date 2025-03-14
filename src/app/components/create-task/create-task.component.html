@@ -1,0 +1,46 @@
+<div class="create-task-container">
+
+    <!-- Notificación de guardado exitoso  -->
+    <div *ngIf="showNotification" class="fixed top-5 right-5 bg-green-500 text-white p-3 rounded-lg shadow-lg z-50">
+        Tarea guardada exitosamente
+    </div>
+
+    <div class="max-w-md mx-auto bg-white p-6 rounded-2xl shadow-md">
+
+        <header>
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Crear nueva tarea</h2>
+        </header>
+
+        <main>
+            <!-- Input que toma el titulo escrito por el usuario -->
+            <div class="mb-4">
+                <input
+                type="text"
+                placeholder="Título"
+                [(ngModel)]="newTask.title"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+            </div>
+            
+            <!-- TextArea que toma la descripción escrita por el usuario -->
+            <div class="mb-4">
+                <textarea
+                [(ngModel)]="newTask.description"
+                placeholder="Descripción"
+                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                ></textarea>
+            </div>
+        </main>
+
+        <footer>
+            <!-- Botón que llama el método addTask para guardar la tarea. -->
+            <button
+                (click)="addTask()"
+                class="w-full bg-gray-900 text-white py-2 rounded-lg hover:bg-gray-900 transition"
+            >
+                Guardar Tarea
+            </button>
+        </footer>
+
+    </div>
+</div>
